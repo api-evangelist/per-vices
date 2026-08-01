@@ -1,0 +1,30 @@
+# Per Vices
+
+> Per Vices Corporation is a Toronto-based company that designs and manufactures high-performance software defined radio (SDR) platforms. Signal tuning is handled in hardware while the remaining radio functionality runs in software, so a single application-agnostic platform serves many markets. Per Vices ships open-source host software and firmware built on the UHD (USRP Hardware Driver) framework rather than a public web API; developers program the radios through the UHD C++ driver, GNU Radio integration, and example applications published on its GitHub org.
+
+## Products
+
+- [Cyan](https://www.pervices.com/products/cyan): Up to 16 independent radio chains, near-DC to 18 GHz.
+- [Crimson TNG](https://www.pervices.com/products/crimson-tng): 4 Rx / 4 Tx, near-DC to 6 GHz.
+- [Chestnut](https://www.pervices.com/products/chestnut): Near-DC to 9 GHz on an Intel Stratix 10 FPGA.
+- [Calamine](https://www.pervices.com/products/calamine): Receive-only, near-DC to 40 GHz.
+
+## Developer Software
+
+- [UHD (Per Vices fork)](https://github.com/pervices/uhd): C++ USRP Hardware Driver framework, the primary host driver.
+- [gr-pv](https://github.com/pervices/gr-pv): GNU Radio out-of-tree block for Per Vices SDRs.
+- [pvpkg](https://github.com/pervices/pvpkg): Per Vices UHD packages and CI testing repo.
+- [Examples](https://github.com/pervices/examples): Example programs, scripts, and applications.
+- [firmware](https://github.com/pervices/firmware): Per Vices SoC firmware source.
+
+## Links
+
+- [Website](https://www.pervices.com)
+- [Blog](https://www.pervices.com/blog)
+- [Support Portal](https://support.pervices.com)
+- [GitHub Organization](https://github.com/pervices)
+
+## Notes
+
+- No public REST/OpenAPI web API surface. Integration is via the UHD C++ driver and GNU Radio over 10G/40G/100G Ethernet to the SDR platform.
+- Full integration support is provided directly to customers.

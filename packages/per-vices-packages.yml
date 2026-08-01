@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: derived
+source: https://github.com/pervices
+note: >-
+  Per Vices publishes no web API and no package-registry (npm/PyPI/Maven/NuGet/
+  crates/RubyGems) client libraries. Its first-party developer software is the
+  UHD (USRP Hardware Driver) host stack and GNU Radio integration, distributed as
+  source and Debian/apt packages from its GitHub org. Registries probed 2026-07-20
+  returned 404/403 for `pervices` and `gr-pv`. Captured here as source-distributed
+  official developer libraries for programming the Cyan / Crimson TNG / Chestnut /
+  Calamine SDR platforms.
+packages:
+  - language: cpp
+    registry: source
+    name: uhd (Per Vices fork)
+    url: https://github.com/pervices/uhd
+    install: git clone https://github.com/pervices/uhd
+    description: >-
+      Per Vices fork of the UHD (USRP Hardware Driver) C++ framework; the primary
+      host driver applications program the SDR platforms through.
+    official: true
+  - language: python
+    registry: source
+    name: gr-pv
+    url: https://github.com/pervices/gr-pv
+    install: git clone https://github.com/pervices/gr-pv
+    description: GNU Radio out-of-tree block for Per Vices software defined radios.
+    official: true
+  - language: python
+    registry: source
+    name: pvpkg
+    url: https://github.com/pervices/pvpkg
+    install: git clone https://github.com/pervices/pvpkg
+    description: Per Vices UHD packages and CI testing repository (Debian/apt packaging).
+    official: true
+  - language: python
+    registry: source
+    name: examples
+    url: https://github.com/pervices/examples
+    install: git clone https://github.com/pervices/examples
+    description: Example programs, scripts, and applications for Per Vices products.
+    official: true
+  - language: c
+    registry: source
+    name: firmware
+    url: https://github.com/pervices/firmware
+    install: git clone https://github.com/pervices/firmware
+    description: Per Vices SoC firmware source.
+    official: true

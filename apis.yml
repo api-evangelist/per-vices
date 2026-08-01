@@ -1,8 +1,31 @@
 aid: per-vices
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/per-vices.png
 name: Per Vices
-description: Per Vices is a company surfaced as a portfolio company of a16z, y-combinator and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Per Vices Corporation is a Toronto-based company that designs and manufactures
+  high-performance software defined radio (SDR) platforms, where signal tuning is
+  handled in hardware while the remaining radio functionality runs in software so a
+  single application-agnostic platform can serve many markets. Its product line
+  includes Cyan (up to 16 independent radio chains, near-DC to 18 GHz), Crimson TNG
+  (4 Rx / 4 Tx, near-DC to 6 GHz), Chestnut (near-DC to 9 GHz on an Intel Stratix 10
+  FPGA), and Calamine (receive-only, near-DC to 40 GHz). Per Vices ships open-source
+  host software and firmware built on the UHD (USRP Hardware Driver) framework rather
+  than a public web API; developers program the radios through the UHD C++ driver,
+  GNU Radio integration, and example applications published on its GitHub org, with
+  full integration support provided directly to customers. Added to the API Evangelist
+  network as a portfolio-lead stub and enriched with company identity and a security
+  probe; it publishes no public REST/OpenAPI web API surface.
 url: https://raw.githubusercontent.com/api-evangelist/per-vices/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,10 +36,50 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
+- Software Defined Radio
+- SDR
+- Radio Frequency
+- Wireless
+- Hardware
+- FPGA
+- Telecommunications
+- Embedded Systems
 apis: []
+x-enrichment:
+  date: '2026-07-20'
+  status: minimal
+  artifacts_added: 2
+  pass: local-v1
+common:
+- type: DomainSecurity
+  url: security/per-vices-domain-security.yml
+- type: Packages
+  url: packages/per-vices-packages.yml
+  name: Per Vices Developer Packages
+- type: SDKs
+  url: packages/per-vices-packages.yml
+  name: Per Vices UHD / GNU Radio Developer Libraries
+- type: LLMsTxt
+  url: llms/per-vices-llms.txt
+  name: Per Vices llms.txt
+- type: Website
+  url: https://www.pervices.com
+  name: Per Vices Website
+- type: Blog
+  url: https://www.pervices.com/blog
+  name: Per Vices Blog
+- type: Support
+  url: https://support.pervices.com
+  name: Per Vices Support Portal
+- type: GitHubOrganization
+  url: https://github.com/pervices
+  name: Per Vices on GitHub
+- type: SourceCode
+  url: https://github.com/pervices/examples
+  name: Per Vices Example Programs and Applications
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
