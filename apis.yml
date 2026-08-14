@@ -23,9 +23,13 @@ description: >-
   host software and firmware built on the UHD (USRP Hardware Driver) framework rather
   than a public web API; developers program the radios through the UHD C++ driver,
   GNU Radio integration, and example applications published on its GitHub org, with
-  full integration support provided directly to customers. Added to the API Evangelist
-  network as a portfolio-lead stub and enriched with company identity and a security
-  probe; it publishes no public REST/OpenAPI web API surface.
+  full integration support provided directly to customers. Control of the radio is
+  device-local rather than internet-facing: an on-device web UI and socket.io channel
+  on the SDR management port, plus the UHD state tree read and written with the
+  uhd_manual_get / uhd_manual_set utilities. Unusually for its market, Per Vices
+  publishes list prices for every platform configuration on a public pricing page.
+  It publishes no public REST/OpenAPI web API surface, no MCP server and no A2A
+  agent card; every /.well-known/ path returned 404 on both hosts on 2026-08-14.
 url: https://raw.githubusercontent.com/api-evangelist/per-vices/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -36,7 +40,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-14'
 tags:
 - Company
 - Software Defined Radio
@@ -48,11 +52,6 @@ tags:
 - Telecommunications
 - Embedded Systems
 apis: []
-x-enrichment:
-  date: '2026-07-20'
-  status: minimal
-  artifacts_added: 2
-  pass: local-v1
 common:
 - type: DomainSecurity
   url: security/per-vices-domain-security.yml
@@ -80,8 +79,66 @@ common:
 - type: SourceCode
   url: https://github.com/pervices/examples
   name: Per Vices Example Programs and Applications
+- type: Documentation
+  url: https://support.pervices.com/
+  name: Per Vices Support and Documentation Site
+- type: GettingStarted
+  url: https://support.pervices.com/how-to/pvht-1-physicalsetup/
+  name: 'PVHT-1: How to Physically Set Up a Per Vices SDR'
+- type: BlogRSS
+  url: https://www.pervices.com/feed/
+  name: Per Vices Blog RSS Feed
+- type: Pricing
+  url: https://www.pervices.com/pricing/
+  name: Per Vices Pricing
+- type: TermsOfService
+  url: https://www.pervices.com/terms-conditions/
+  name: Per Vices Terms and Conditions
+- type: Plans
+  url: plans/per-vices-plans-pricing.yml
+  name: Per Vices Published Hardware Pricing
+- type: RateLimits
+  url: rate-limits/per-vices-rate-limits.yml
+  name: Per Vices Rate Limits (none published)
+- type: ChangeLog
+  url: changelog/per-vices-changelog.yml
+  name: Per Vices Firmware and Host Driver Releases
+- type: CLI
+  url: cli/per-vices-cli.yml
+  name: Per Vices UHD Command-Line Utilities
+- type: Conventions
+  url: conventions/per-vices-conventions.yml
+  name: Per Vices Device Control Interface Conventions
+- type: Lifecycle
+  url: lifecycle/per-vices-lifecycle.yml
+  name: Per Vices Release and Support Lifecycle
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 7
+  pass: local-v1
+x-coverage:
+  state: none
+  reason: not-a-software-company
+  detail: >-
+    Per Vices manufactures software defined radio hardware — the product is a radio,
+    and its control plane is device-local (an on-device web UI and socket.io channel
+    on the SDR management port, default 192.168.10.2, plus the UHD state tree), so
+    there is no internet-facing API to publish; every /.well-known/, /openapi.json,
+    /swagger.json and /llms.txt path returned a genuine 404 on both www.pervices.com
+    and support.pervices.com.
+  evidence:
+    - url: https://www.pervices.com/openapi.json
+      status: 404
+    - url: https://www.pervices.com/.well-known/agent-card.json
+      status: 404
+    - url: https://support.pervices.com/openapi.json
+      status: 404
+    - url: https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/
+      status: 200
+  checked: '2026-08-14'
