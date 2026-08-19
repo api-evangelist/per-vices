@@ -1,30 +1,59 @@
 # Per Vices
 
-> Per Vices Corporation is a Toronto-based company that designs and manufactures high-performance software defined radio (SDR) platforms. Signal tuning is handled in hardware while the remaining radio functionality runs in software, so a single application-agnostic platform serves many markets. Per Vices ships open-source host software and firmware built on the UHD (USRP Hardware Driver) framework rather than a public web API; developers program the radios through the UHD C++ driver, GNU Radio integration, and example applications published on its GitHub org.
+> Per Vices Corporation is a Toronto-based company that designs and manufactures high-performance software defined radio (SDR) platforms. Signal tuning is handled in hardware while the remaining radio functionality runs in software, so a single application-agnostic platform serves many markets. Per Vices publishes no hosted web API: developers program the radios through the UHD (USRP Hardware Driver) C++ framework, GNU Radio integration, a device-local web UI on the SDR's management port, and the UHD state tree. Host software, firmware and examples are open source on its GitHub org.
 
 ## Products
 
-- [Cyan](https://www.pervices.com/products/cyan): Up to 16 independent radio chains, near-DC to 18 GHz.
-- [Crimson TNG](https://www.pervices.com/products/crimson-tng): 4 Rx / 4 Tx, near-DC to 6 GHz.
-- [Chestnut](https://www.pervices.com/products/chestnut): Near-DC to 9 GHz on an Intel Stratix 10 FPGA.
-- [Calamine](https://www.pervices.com/products/calamine): Receive-only, near-DC to 40 GHz.
+- [Crimson TNG](https://www.pervices.com/crimson-tng/): 4 Rx / 4 Tx, near-DC to 6 GHz, 325 MHz bandwidth configuration.
+- [Cyan](https://www.pervices.com/cyan/): Up to 16 independent radio chains, near-DC to 18 GHz, 1 GHz and 3 GHz (HB) bandwidth configurations.
+- [Chestnut](https://www.pervices.com/chestnut/): Near-DC to 9 GHz on an Intel Stratix 10 FPGA, 500 MHz bandwidth configuration.
+- [Calamine](https://www.pervices.com/calamine/): Receive-only, tuning range up to 40 GHz, 4 independent Rx chains.
+- [Host & Storage Solutions](https://www.pervices.com/host-storage/): Configured per requirement.
+- [BYOSDR](https://pervices.com/byosdr): Build-your-own-SDR configurator for custom channel counts.
 
 ## Developer Software
 
-- [UHD (Per Vices fork)](https://github.com/pervices/uhd): C++ USRP Hardware Driver framework, the primary host driver.
-- [gr-pv](https://github.com/pervices/gr-pv): GNU Radio out-of-tree block for Per Vices SDRs.
-- [pvpkg](https://github.com/pervices/pvpkg): Per Vices UHD packages and CI testing repo.
-- [Examples](https://github.com/pervices/examples): Example programs, scripts, and applications.
+- [UHD (Per Vices fork)](https://github.com/pervices/uhd): C++ USRP Hardware Driver framework, the supported integration path. Latest release v4.4.0.55 (2025-01-22).
 - [firmware](https://github.com/pervices/firmware): Per Vices SoC firmware source.
+- [pvpkg](https://github.com/pervices/pvpkg): UHD Debian/apt packaging and CI testing repo. Latest tag v3.0.1 (2022-01-18).
+- [meta-pervices](https://github.com/pervices/meta-pervices): Yocto BSP layer for the on-device Linux image.
+- [examples](https://github.com/pervices/examples): Example programs, GNU Radio flowgraphs and applications.
+- [webserver](https://github.com/pervices/webserver): The Node/Express + socket.io web UI that runs on the SDR itself.
+- [gr-pv](https://github.com/pervices/gr-pv): GNU Radio out-of-tree block. Dormant — no commit since 2018; use the UHD source/sink blocks instead.
+- [releases](https://github.com/pervices/releases/releases): Firmware and FPGA image distribution. Latest fpga-stable-t8v15-4.4 (2026-07-18).
+
+## Control interface
+
+There is no public, internet-reachable API. The SDR is controlled on the customer's own network:
+
+- Management web UI over HTTP on the device (default 192.168.10.2), with pages for RX chain, TX chain, clock, configuration and debug. See [PVHT-13](https://support.pervices.com/how-to/pvht-13-web-UI/).
+- A socket.io control channel used by that UI: `prop_rd`, `prop_wr`, `systctl`, `raw_cmd`, `hexfile`, returning `prop_ret`, `prop_wr_ret`, `raw_reply`.
+- The UHD state tree, addressed by hierarchical paths such as `/mboards/0/rx_codecs/A/gains`, read and written with `uhd_manual_get` and `uhd_manual_set`. See [PVHT-15](https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/).
+- No authentication, authorization or TLS on the device interface; access control is the network boundary. Per Vices documents a VPN setup in [PVAN-7](https://support.pervices.com/application-notes/pvan-7/).
+
+## Documentation
+
+- [Support and documentation site](https://support.pervices.com/)
+- [PVHT-1: Physical setup](https://support.pervices.com/how-to/pvht-1-physicalsetup/)
+- [PVHT-2: Network configuration](https://support.pervices.com/how-to/pvht-2-networkconf/)
+- [PVHT-3: Set up UHD and GNU Radio software](https://support.pervices.com/how-to/pvht-3-softwaresetup/)
+- [PVHT-4: Test successful setup and operation](https://support.pervices.com/how-to/pvht-4-testsetup/)
+- [PVHT-5: Update your Per Vices SDR](https://support.pervices.com/how-to/pvht-5-updatefirmware/)
+- [PVAN-11: Crimson and Cyan data format specification](https://support.pervices.com/application-notes/pvan-11-dataformat-spec/)
+- [PVAN-12: Troubleshooting guide](https://support.pervices.com/application-notes/pvan-12-troubleshooting/)
+- [Crimson TNG networking defaults](https://support.pervices.com/crimson/networking/)
 
 ## Links
 
 - [Website](https://www.pervices.com)
+- [Pricing](https://www.pervices.com/pricing/) — list prices published for every platform configuration, USD, one-time hardware purchase.
 - [Blog](https://www.pervices.com/blog)
-- [Support Portal](https://support.pervices.com)
+- [Contact](https://www.pervices.com/contact/) — solutions@pervices.com
+- [Terms & Conditions](https://www.pervices.com/terms-conditions/)
 - [GitHub Organization](https://github.com/pervices)
 
 ## Notes
 
-- No public REST/OpenAPI web API surface. Integration is via the UHD C++ driver and GNU Radio over 10G/40G/100G Ethernet to the SDR platform.
+- No OpenAPI, AsyncAPI, GraphQL, MCP server or A2A agent card. Every `/.well-known/` path returned 404 on both www.pervices.com and support.pervices.com on 2026-08-14.
+- The marketing site answers the stock WordPress REST discovery document at `/wp-json/`. That is CMS and plugin plumbing, not a Per Vices product API, and it is not listed as one.
 - Full integration support is provided directly to customers.

@@ -1,0 +1,75 @@
+generated: '2026-08-14'
+method: searched
+source: https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/
+repo: https://github.com/pervices/uhd/tree/master/host/utils
+note: >-
+  Per Vices ships no cloud/API CLI. Its command-line surface is the set of host
+  utilities built from the Per Vices fork of UHD, which is how an operator reads
+  and writes the SDR's state tree (the device property tree that the radio's
+  configuration lives in). Two of these — uhd_manual_get and uhd_manual_set — are
+  Per Vices additions documented in PVHT-15; the remainder are UHD utilities the
+  fork carries and Per Vices documentation directs customers to use. Only the
+  commands and flags Per Vices actually publishes are recorded; nothing is
+  invented. Per Vices' own documentation warns that direct state-tree access is
+  not recommended for general use.
+install:
+  - method: source
+    command: git clone https://github.com/pervices/uhd && cd host && mkdir build && cd build && cmake .. && make
+    docs: https://support.pervices.com/how-to/pvht-3-softwaresetup/
+  - method: apt
+    command: (Debian packages built from https://github.com/pervices/pvpkg)
+    docs: https://support.pervices.com/how-to/pvht-3-softwaresetup/
+commands:
+  - group: state tree (Per Vices additions)
+    commands:
+      - name: uhd_manual_get
+        description: >-
+          Read the current value of an arbitrary path in the SDR state tree
+          (gain, IQ balance, FPGA version, clock source, and so on).
+        flags:
+          - {flag: --path, description: 'UHD state tree path, e.g. /mboards/0/rx_codecs/A/gains'}
+          - {flag: --type, description: 'Value data type: string, int or double'}
+          - {flag: --help, description: List supported arguments}
+        example: uhd_manual_get --path /mboards/0/rx_codecs/A/gains --type int
+        source: https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/
+      - name: uhd_manual_set
+        description: Write a value to an arbitrary path in the SDR state tree.
+        flags:
+          - {flag: --path, description: UHD state tree path}
+          - {flag: --type, description: 'Value data type: string, int or double'}
+          - {flag: --value, description: The value to write}
+          - {flag: --help, description: List supported arguments}
+        example: uhd_manual_set --path /mboards/0/rx_codecs/A/gains --type int --value 15
+        source: https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/
+  - group: device discovery and inspection
+    commands:
+      - {name: uhd_find_devices, description: Discover Per Vices/USRP devices reachable on the network}
+      - {name: uhd_usrp_probe, description: Print the full device property tree and capability report}
+      - {name: uhd_usrp_info, description: Print device identification and version information}
+      - {name: uhd_config_info, description: Print the UHD build/configuration information}
+  - group: calibration
+    commands:
+      - {name: uhd_cal_rx_iq_balance, description: Calibrate receive-side IQ balance}
+      - {name: uhd_cal_tx_iq_balance, description: Calibrate transmit-side IQ balance}
+      - {name: uhd_cal_tx_dc_offset, description: Calibrate transmit-side DC offset}
+      - {name: uhd_adc_self_cal, description: Run ADC self-calibration}
+  - group: images and firmware
+    commands:
+      - {name: uhd_image_loader, description: Load an FPGA/firmware image onto the device}
+      - {name: uhd_images_downloader, description: Download the matching UHD image set for the installed driver}
+  - group: diagnostics
+    commands:
+      - {name: crimson_diagnostic.sh, description: Per Vices diagnostic script for Crimson platforms}
+key_flows:
+  - name: Read or change a radio parameter not exposed by the API
+    steps:
+      - Locate the TREE_CREATE_RW / TREE_CREATE_ST macro for the parameter in the device implementation file (crimson_tng_impl.cpp, or the matching cyan_*_impl.cpp).
+      - Take the first macro argument as the UHD path and pass it to --path.
+      - uhd_manual_get --path <path> --type <string|int|double>
+      - uhd_manual_set --path <path> --type <string|int|double> --value <value>
+    docs: https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/
+  - name: Verify a newly installed SDR
+    steps:
+      - uhd_find_devices
+      - uhd_usrp_probe
+    docs: https://support.pervices.com/how-to/pvht-4-testsetup/

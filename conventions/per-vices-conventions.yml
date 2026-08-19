@@ -1,0 +1,114 @@
+generated: '2026-08-14'
+method: searched
+source: https://support.pervices.com/crimson/networking/
+sources:
+  - https://support.pervices.com/crimson/networking/
+  - https://support.pervices.com/how-to/pvht-13-web-UI/
+  - https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/
+  - https://support.pervices.com/how-to/pvht-6-customip/
+  - https://github.com/pervices/webserver
+note: >-
+  Per Vices exposes no public, internet-reachable web API. What it does publish —
+  and what this artifact captures — is the DEVICE-LOCAL control interface an
+  operator uses to configure an SDR on their own network: a management Ethernet
+  port serving an on-device web UI and socket.io channel, plus the UHD state tree
+  reachable from the host driver and CLI. The base address is a private LAN
+  address on hardware the customer owns, so it is deliberately NOT registered as an
+  apis[] baseURL. Every value below is published by Per Vices in its own support
+  documentation or in the pervices/webserver source; nothing is inferred.
+surface:
+  kind: device-local control plane
+  reachable_from: the customer's own network segment, not the public internet
+  transports:
+    - name: management HTTP (web UI)
+      protocol: HTTP
+      default_host: 192.168.10.2
+      port: 80
+      description: >-
+        Node/Express + jade web UI served by the SDR itself. Pages: / (index),
+        /rx (RX chain), /tx (TX chain), /clock, /config, /debug.
+      source: https://github.com/pervices/webserver
+    - name: management control channel
+      protocol: socket.io (WebSocket)
+      description: >-
+        The web UI talks to the device over socket.io events rather than REST.
+        Published event names in the shipped server: prop_rd (read a state-tree
+        property file), prop_wr (write one), systctl (raw command from the control
+        root), raw_cmd (raw system command), hexfile (upload and flash an MCU hex
+        image). Responses come back as prop_ret, prop_wr_ret and raw_reply.
+      source: https://github.com/pervices/webserver
+    - name: UHD host driver
+      protocol: proprietary over UDP/Ethernet
+      description: >-
+        The supported integration path. Applications link the Per Vices UHD C++
+        driver (or GNU Radio's UHD source/sink blocks) and address the radio
+        through the UHD property/state tree.
+      source: https://support.pervices.com/how-to/pvht-3-softwaresetup/
+    - name: data plane
+      protocol: UDP over SFP+ / QSFP+
+      description: IQ sample streaming; separate from the control plane.
+addressing:
+  default_management_ip: 192.168.10.2
+  default_management_port: 42799
+  configurable: true
+  configuration_docs: https://support.pervices.com/how-to/pvht-6-customip/
+  crimson_tng_defaults:
+    sfp_a: {device_ip: 10.10.10.2, channels: [A, C], rx_dest_ip: 10.10.10.10, rx_udp_ports: [42820, 42821], tx_udp_ports: [42824, 42825], flow_control_port: 42809}
+    sfp_b: {device_ip: 10.10.11.2, channels: [B, D], rx_dest_ip: 10.10.11.10, rx_udp_ports: [42822, 42823], tx_udp_ports: [42826, 42827], flow_control_port: 42810}
+    mtu: {data: 9000, management: 1500}
+    link: 10GBASE-R required on SFP+ (10GBASE-X and 10GBASE-T are incompatible)
+resource_model:
+  style: hierarchical property tree ("state tree")
+  path_form: /mboards/<n>/<subsystem>/<channel>/<property>
+  example_path: /mboards/0/rx_codecs/A/gains
+  value_types: [string, int, double]
+  binding: >-
+    Each state-tree path is bound to a UHD path by a TREE_CREATE_RW or
+    TREE_CREATE_ST macro in the device implementation file (crimson_tng_impl.cpp,
+    cyan_4r4t_impl.cpp, and siblings). The first macro argument is the UHD-side
+    path, the second is the server-side path, the third and fourth are datatypes.
+  server_state_dir: /var/volatile/crimson/state/
+  docs: https://support.pervices.com/how-to/pvht-15-get-set-paths-uhd/
+authentication:
+  model: none
+  detail: >-
+    The shipped device web server declares no authentication, authorization or TLS
+    — access control is the customer's network boundary. Per Vices documents an
+    OpenWRT/VPN setup (PVAN-7) as the recommended way to reach a device remotely.
+  source: https://github.com/pervices/webserver
+  vpn_guidance: https://support.pervices.com/application-notes/pvan-7/
+idempotency:
+  supported: false
+  detail: >-
+    No idempotency key, no request identifier, no dedupe contract. State-tree
+    writes are last-write-wins file writes into the device state directory. No
+    Idempotency pointer is wired into apis.yml.
+pagination:
+  supported: false
+  detail: Not applicable — the interface is a property tree, not a collection API.
+versioning:
+  scheme: product release tags (firmware/FPGA images and UHD host driver versioned separately)
+  detail: >-
+    Host driver and device firmware must be matched; the update procedure is
+    published as PVHT-5. There is no API version header or URI version segment.
+  docs: https://support.pervices.com/how-to/pvht-5-updatefirmware/
+  see_also: changelog/per-vices-changelog.yml
+error_semantics:
+  envelope: none
+  detail: >-
+    No structured error envelope, no RFC 9457 problem details, no documented error
+    code registry for the control interface. Troubleshooting is published as prose
+    in PVAN-12.
+  docs: https://support.pervices.com/application-notes/pvan-12-troubleshooting/
+rate_limiting:
+  supported: false
+  detail: No published rate limits. See rate-limits/per-vices-rate-limits.yml.
+data_format:
+  spec: PVAN-11 — Crimson and Cyan Data Format Specification
+  url: https://support.pervices.com/application-notes/pvan-11-dataformat-spec/
+  detail: The IQ sample/packet format for the data plane, published as prose (not a machine-readable schema).
+cross_links:
+  cli: cli/per-vices-cli.yml
+  lifecycle: lifecycle/per-vices-lifecycle.yml
+  packages: packages/per-vices-packages.yml
+  rate_limits: rate-limits/per-vices-rate-limits.yml

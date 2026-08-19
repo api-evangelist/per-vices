@@ -1,49 +1,117 @@
-generated: '2026-07-20'
-method: derived
+generated: '2026-08-14'
+method: searched
 source: https://github.com/pervices
+registries_probed:
+  - {registry: npm, query: pervices, status: 404, date: '2026-08-14'}
+  - {registry: pypi, query: pervices, status: 404, date: '2026-08-14'}
+  - {registry: crates.io, query: pervices, status: 403, date: '2026-08-14'}
+  - {registry: rubygems, query: pervices, status: 404, date: '2026-08-14'}
 note: >-
-  Per Vices publishes no web API and no package-registry (npm/PyPI/Maven/NuGet/
-  crates/RubyGems) client libraries. Its first-party developer software is the
-  UHD (USRP Hardware Driver) host stack and GNU Radio integration, distributed as
-  source and Debian/apt packages from its GitHub org. Registries probed 2026-07-20
-  returned 404/403 for `pervices` and `gr-pv`. Captured here as source-distributed
-  official developer libraries for programming the Cyan / Crimson TNG / Chestnut /
-  Calamine SDR platforms.
+  Per Vices publishes no web API and no package-registry client libraries. Its
+  first-party developer software is the UHD (USRP Hardware Driver) host stack, a
+  GNU Radio out-of-tree block, and SoC firmware, all distributed as source from the
+  pervices GitHub org and as Debian/apt packages built by pvpkg. Registry probes on
+  2026-08-14 returned 404/403 for `pervices` on npm, PyPI, crates.io and RubyGems.
+  The PyPI package `uhd` exists but belongs to Ettus Research / NI upstream, not to
+  Per Vices, so it is NOT recorded here as first-party. Because there is no
+  registry metadata endpoint for source-distributed software, `version:` and
+  `published:` below are read from the repository's own git tag / GitHub release
+  metadata (the provider-published, reliably-dated equivalent), and are null where
+  the repo publishes no tag at all.
 packages:
   - language: cpp
     registry: source
     name: uhd (Per Vices fork)
     url: https://github.com/pervices/uhd
     install: git clone https://github.com/pervices/uhd
+    version: v4.4.0.55
+    published: '2025-01-22'
+    version_source: github-release
+    last_commit: '2026-08-12'
     description: >-
       Per Vices fork of the UHD (USRP Hardware Driver) C++ framework; the primary
-      host driver applications program the SDR platforms through.
-    official: true
-  - language: python
-    registry: source
-    name: gr-pv
-    url: https://github.com/pervices/gr-pv
-    install: git clone https://github.com/pervices/gr-pv
-    description: GNU Radio out-of-tree block for Per Vices software defined radios.
-    official: true
-  - language: python
-    registry: source
-    name: pvpkg
-    url: https://github.com/pervices/pvpkg
-    install: git clone https://github.com/pervices/pvpkg
-    description: Per Vices UHD packages and CI testing repository (Debian/apt packaging).
-    official: true
-  - language: python
-    registry: source
-    name: examples
-    url: https://github.com/pervices/examples
-    install: git clone https://github.com/pervices/examples
-    description: Example programs, scripts, and applications for Per Vices products.
+      host driver applications use to program Crimson TNG, Cyan, Chestnut and
+      Calamine. Ships the Per Vices-specific uhd_manual_get / uhd_manual_set state
+      tree utilities.
     official: true
   - language: c
     registry: source
     name: firmware
     url: https://github.com/pervices/firmware
     install: git clone https://github.com/pervices/firmware
-    description: Per Vices SoC firmware source.
+    version: tate-rtm345-stable
+    published: '2022-09-28'
+    version_source: github-tag
+    last_commit: '2026-08-13'
+    description: Per Vices SoC firmware source for the SDR platforms.
+    official: true
+  - language: python
+    registry: source
+    name: pvpkg
+    url: https://github.com/pervices/pvpkg
+    install: git clone https://github.com/pervices/pvpkg
+    version: v3.0.1
+    published: '2022-01-18'
+    version_source: github-tag
+    last_commit: '2026-08-13'
+    description: >-
+      Per Vices UHD packaging and CI testing repository; builds the Debian/apt
+      packages that are the actual distribution channel for the host stack.
+    official: true
+  - language: shell
+    registry: source
+    name: meta-pervices
+    url: https://github.com/pervices/meta-pervices
+    install: git clone https://github.com/pervices/meta-pervices
+    version: null
+    published: null
+    version_source: null
+    last_commit: '2026-08-10'
+    description: >-
+      Per Vices Yocto BSP layer used to build the on-device Linux image. Actively
+      developed but publishes no tags or releases, so a consumer cannot pin a
+      version — recorded as an honest null rather than a guess.
+    official: true
+  - language: python
+    registry: source
+    name: examples
+    url: https://github.com/pervices/examples
+    install: git clone https://github.com/pervices/examples
+    version: null
+    published: null
+    version_source: null
+    last_commit: '2025-11-26'
+    description: >-
+      Example programs, GNU Radio flowgraphs, and applications for Per Vices
+      products (ADS-B polyphase, FM receiver in C++/GRC, waterfall plot, sdr2disk,
+      sdr2sdr, repeater, MATLAB mex). Untagged.
+    official: true
+  - language: cpp
+    registry: source
+    name: gr-pv
+    url: https://github.com/pervices/gr-pv
+    install: git clone https://github.com/pervices/gr-pv
+    version: null
+    published: null
+    version_source: null
+    last_commit: '2018-11-20'
+    description: >-
+      GNU Radio out-of-tree block for Per Vices software defined radios. No tags,
+      no releases, and no commit since 2018-11-20 — the weakest currency signal in
+      this set. Current documentation routes GNU Radio users through the UHD
+      source/sink blocks instead (see PVR-4), so treat gr-pv as dormant.
+    official: true
+  - language: javascript
+    registry: source
+    name: webserver
+    url: https://github.com/pervices/webserver
+    install: git clone https://github.com/pervices/webserver
+    version: null
+    published: null
+    version_source: null
+    last_commit: '2023-02-14'
+    description: >-
+      The Node/Express + socket.io web UI that runs on the SDR itself (Crimson,
+      Cyan, Cyan HDR variants), served on the device management port. Untagged;
+      versioned in practice by the firmware release it ships inside.
     official: true

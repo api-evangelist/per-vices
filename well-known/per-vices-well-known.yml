@@ -1,0 +1,53 @@
+generated: '2026-08-14'
+method: probed
+source: live HTTP probes of the Per Vices web and support hosts
+note: >-
+  Every /.well-known/ path returned a genuine HTTP 404 on both Per Vices hosts on
+  2026-08-14 — no security.txt, no OIDC/OAuth discovery, no api-catalog, no
+  ai-plugin, no A2A agent card at either the canonical or legacy path. Recorded as
+  a verified absence. NO WellKnown or SecurityTxt pointer is wired into apis.yml,
+  because nothing here is a served document. Note the 404s are real 404 status
+  codes with a real error body, not a soft-200 SPA catch-all, so these are
+  trustworthy negatives. Per Vices runs a WordPress marketing site (www) and an
+  MkDocs support/documentation site (support); neither publishes a discovery
+  surface.
+hosts:
+  - host: https://www.pervices.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /security.txt, status: 404}
+      - {path: /llms.txt, status: 404}
+      - {path: /openapi.json, status: 404}
+      - {path: /swagger.json, status: 404}
+      - {path: /api-docs, status: 404}
+  - host: https://support.pervices.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /llms.txt, status: 404}
+      - {path: /openapi.json, status: 404}
+      - {path: /swagger.json, status: 404}
+x-adjacent-findings:
+  - url: https://www.pervices.com/wp-json/
+    status: 200
+    kind: wordpress-rest-discovery
+    note: >-
+      The marketing site answers the WordPress REST API discovery document (312
+      routes across 19 namespaces — wp/v2, oembed, elementor, matomo, wp-rocket,
+      wp-smush, redirection). This is stock WordPress and third-party plugin
+      plumbing shipped by the CMS, NOT a Per Vices product API: no Per Vices
+      resource, no documentation reference, and /wp-json/wp/v2/posts returns an
+      empty array. Recorded here for provenance and deliberately NOT registered as
+      an apis[] entry, because doing so would credit Per Vices with a web API it
+      never designed or published.

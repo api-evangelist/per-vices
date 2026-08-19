@@ -1,0 +1,56 @@
+generated: '2026-08-14'
+method: searched
+source: https://github.com/pervices/releases/releases
+docs: https://support.pervices.com/how-to/pvht-5-updatefirmware/
+note: >-
+  Per Vices publishes no dated changelog page on pervices.com or on the support
+  site. The nearest provider-published, dated release record is the GitHub Releases
+  feed on pervices/releases (the firmware/FPGA image distribution repo) and on
+  pervices/uhd (the host driver). Captured here verbatim from the GitHub Releases
+  API on 2026-08-14. Release cadence is slow and irregular — three published
+  releases on the images repo spanning 2018 to 2026 — so treat this as a release
+  record, not an API changelog.
+scheme: product-release-tags
+current:
+  images: fpga-stable-t8v15-4.4
+  host_driver: v4.4.0.55
+channels:
+  - name: firmware / FPGA images
+    repo: https://github.com/pervices/releases
+    url: https://github.com/pervices/releases/releases
+  - name: UHD host driver
+    repo: https://github.com/pervices/uhd
+    url: https://github.com/pervices/uhd/releases
+  - name: update procedure
+    url: https://support.pervices.com/how-to/pvht-5-updatefirmware/
+entries:
+  - version: fpga-stable-t8v15-4.4
+    date: '2026-07-18'
+    channel: firmware / FPGA images
+    title: Crimson Stable RTM15
+    breaking: unknown
+    prerelease: false
+  - version: v4.4.0.55
+    date: '2025-01-22'
+    channel: UHD host driver
+    title: UHD 4.4.0.55 Release
+    breaking: unknown
+    prerelease: false
+  - version: tng-v3.0.0-beta.0
+    date: '2022-01-05'
+    channel: firmware / FPGA images
+    title: Crimson 3.0.0-beta.0 release
+    breaking: unknown
+    prerelease: true
+  - version: f967ab8
+    date: '2021-04-26'
+    channel: UHD host driver
+    title: 4.0.1-rc1
+    breaking: unknown
+    prerelease: false
+  - version: tng-v2.0.3
+    date: '2018-04-23'
+    channel: firmware / FPGA images
+    title: TNG 2.0.3 Release
+    breaking: unknown
+    prerelease: false

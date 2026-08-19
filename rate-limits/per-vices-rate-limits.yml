@@ -1,0 +1,28 @@
+generated: '2026-08-14'
+method: searched
+source: https://support.pervices.com/
+limit_count: 0
+note: >-
+  Per Vices publishes no rate limits, because it publishes no hosted API to rate
+  limit. The only control interface is device-local (see
+  conventions/per-vices-conventions.yml): an on-device web UI and socket.io channel
+  on the SDR's management port, plus the UHD state tree, all reachable only from
+  the customer's own network. Nothing in the support documentation, the pricing
+  page, or the pervices/webserver source declares a request quota, a throttle, or
+  a 429 response. The nearest analogue Per Vices does document is data-plane flow
+  control — a hardware/protocol mechanism for IQ streaming, not an API rate limit —
+  recorded below for context only.
+limits: []
+response_headers: []
+exhaustion_status: null
+adjacent:
+  - name: SDR data-plane flow control
+    kind: hardware flow control (not an API rate limit)
+    detail: >-
+      Per Vices documents flow control on the SFP+ data plane (dedicated flow
+      control UDP ports 42809 / 42810 on Crimson TNG) and publishes bandwidth and
+      sample-rate calculations so an integrator can size the link. This governs IQ
+      sample throughput between the radio and the host, not API requests.
+    docs:
+      - https://support.pervices.com/application-notes/pvan-4/
+      - https://support.pervices.com/application-notes/pvan-2/

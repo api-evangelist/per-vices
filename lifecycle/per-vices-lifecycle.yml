@@ -1,0 +1,47 @@
+generated: '2026-08-14'
+method: searched
+source: https://support.pervices.com/how-to/pvht-5-updatefirmware/
+note: >-
+  Per Vices ships hardware plus an open-source host stack, not a hosted API, so
+  most of the API lifecycle surface simply does not exist here. Each item below was
+  checked against the company's own site and support documentation on 2026-08-14
+  and is recorded as found — including the absences, which are honest measurements
+  rather than gaps in this pass.
+versioning:
+  scheme: product-release-tags
+  current_images: fpga-stable-t8v15-4.4
+  current_host_driver: v4.4.0.55
+  detail: >-
+    Firmware/FPGA images and the UHD host driver are versioned and released
+    independently and must be kept compatible with each other; Per Vices publishes
+    the pairing and update procedure as PVHT-5. There is no API version scheme.
+  docs: https://support.pervices.com/how-to/pvht-5-updatefirmware/
+release_channels:
+  - {name: firmware / FPGA images, url: 'https://github.com/pervices/releases/releases'}
+  - {name: UHD host driver, url: 'https://github.com/pervices/uhd/releases'}
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: >-
+    No published deprecation or end-of-life policy. The support site does keep a
+    "Crimson Classic" section for the superseded first-generation platform, which
+    is the closest thing to a documented legacy posture, but it states no support
+    window or sunset date.
+  legacy_docs: https://support.pervices.com/crimson-classic/crimson-classic-userguide/
+sla:
+  url: null
+  uptime_target: null
+  detail: No published SLA. Integration support is provided directly to customers under commercial terms.
+status_page:
+  url: null
+  probe: {url: 'https://status.pervices.com', status: 0, note: DNS does not resolve, date: '2026-08-14'}
+  detail: >-
+    No status page exists and none is needed — there is no hosted service to
+    report on. No StatusPage pointer is wired into apis.yml.
+support:
+  documentation: https://support.pervices.com/
+  contact: https://www.pervices.com/contact/
+  email: solutions@pervices.com
+terms:
+  url: https://www.pervices.com/terms-conditions/
+deprecated_operations: []

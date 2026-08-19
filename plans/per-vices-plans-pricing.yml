@@ -1,0 +1,35 @@
+generated: '2026-08-14'
+method: searched
+source: https://www.pervices.com/pricing/
+currency: USD
+billing: one-time hardware purchase
+plan_count: 12
+note: >-
+  Per Vices sells software defined radio hardware, not API plans or subscriptions,
+  and it is unusually transparent about it — it publishes list prices for every
+  platform configuration on a public pricing page rather than hiding behind a
+  "contact sales" wall. Captured verbatim from that page on 2026-08-14. There are
+  no API tiers, no quotas, no overage, and no metered usage, because there is no
+  hosted API to meter; the host software (UHD fork, GNU Radio blocks, examples,
+  firmware) is published as open source at no additional charge. Host & Storage
+  Solutions and custom channel counts are quoted individually.
+plans:
+  - {name: Crimson TNG, price: 17000, currency: USD, period: one-time, family: Crimson TNG, includes: '325 MHz bandwidth configuration, 4 Rx and 4 Tx radio chains'}
+  - {name: Crimson TNG Half Kit, price: 18900, currency: USD, period: one-time, family: Crimson TNG, includes: 'Crimson TNG, 4x SMA cables, 1x SFP+ cable, 2x attenuators'}
+  - {name: Crimson TNG Full Kit, price: 19900, currency: USD, period: one-time, family: Crimson TNG, includes: 'Crimson TNG, 8x SMA cables, 2x SFP+ cable, 4x attenuators'}
+  - {name: Crimson TNG Deluxe Kit, price: 21500, currency: USD, period: one-time, family: Crimson TNG, includes: 'Crimson TNG, 8x SMA cables, 2x SFP+ cable, 4x attenuators, 1x compatible 10G NIC (PCIe)'}
+  - {name: Cyan Basic, price: 100800, currency: USD, period: one-time, family: Cyan, includes: '1 GHz bandwidth configuration, 1 Rx or Tx radio chain'}
+  - {name: Cyan Mid4, price: 141750, currency: USD, period: one-time, family: Cyan, includes: '1 GHz bandwidth configuration, 4 Rx and 4 Tx radio chains'}
+  - {name: Cyan Mid8, price: 196350, currency: USD, period: one-time, family: Cyan, includes: '1 GHz bandwidth configuration, 8 Rx and 8 Tx radio chains'}
+  - {name: Cyan Pro, price: 208950, currency: USD, period: one-time, family: Cyan, includes: '1 GHz bandwidth configuration, 16 Rx or Tx radio chains'}
+  - {name: Cyan HB Basic, price: 129150, currency: USD, period: one-time, family: Cyan HB, includes: '3 GHz bandwidth configuration, 1 Rx or Tx radio chain'}
+  - {name: Cyan HB Mid, price: 142800, currency: USD, period: one-time, family: Cyan HB, includes: '3 GHz bandwidth configuration, 2 Rx and 2 Tx radio chains'}
+  - {name: Cyan HB Pro, price: 170100, currency: USD, period: one-time, family: Cyan HB, includes: '3 GHz bandwidth configuration, 4 Rx and 4 Tx radio chains'}
+  - {name: Chestnut, price: 60000, currency: USD, period: one-time, family: Chestnut, includes: '500 MHz bandwidth configuration, 4 Rx and 4 Tx radio chains', constraint: 'minimum order quantity of 5'}
+  - {name: Calamine, price: 155000, currency: USD, period: one-time, family: Calamine, includes: 'tuning range up to 40 GHz, 4 independent Rx radio chains'}
+quote_only:
+  - {name: 'Host & Storage Solutions', note: 'configured per requirement; contact for pricing'}
+  - {name: Custom channel counts and configurations, note: 'estimate available through the BYOSDR tool', url: 'https://pervices.com/byosdr'}
+  - {name: 'Custom kit options', note: 'SMA cables, qSFP+ cables, compatible 40/100G NIC (PCIe), host and storage systems'}
+api_plans: []
+api_plan_note: No API plans, quotas or usage-based tiers exist — Per Vices publishes no hosted API.
