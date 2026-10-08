@@ -33,3 +33,101 @@ quote_only:
   - {name: 'Custom kit options', note: 'SMA cables, qSFP+ cables, compatible 40/100G NIC (PCIe), host and storage systems'}
 api_plans: []
 api_plan_note: No API plans, quotas or usage-based tiers exist — Per Vices publishes no hosted API.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Crimson TNG
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Crimson TNG Half Kit
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Crimson TNG Full Kit
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Crimson TNG Deluxe Kit
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Cyan Basic
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Cyan Mid4
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Cyan Mid8
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Cyan Pro
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Cyan HB Basic
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Cyan HB Mid
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Cyan HB Pro
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Chestnut
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Calamine
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - one-time
